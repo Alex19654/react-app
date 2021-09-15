@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import {Component} from "react";
+import {fetchPopularRepos} from "./api/fetchPopularRepos";
+import RepoGrid from "./RepoGrid";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
+
+class App extends Component {
+    state = {
+        selectedLanguage: 'All',
+        repos: null
+    }
+
+    componentDidMount() {
+        fetchPopularRepos(this.state.selectedLanguage)
+            .then(data => this.setState({ repos: data }));
+    }
+
+    selectLanguage = (event) => {
+        this.setState({ repos: null });
+        fetchPopularRepos(event.target.innerText)
+            .then(data => this.setState({ repos: data }));
+        if(event.target.innerText !== this.state.selectedLanguage) {
+            this.setState({selectedLanguage: event.target.innerText});
+        }
+    }
+
+    render() {
+        return (
+            <>
+                <ul className='languages'>
+                    {languages.map((language, index) =>
+                        <li
+                            key={index}
+                            style={{color: language === this.state.selectedLanguage ? '#d0021b' : '#000000'}}
+                            onClick={this.selectLanguage}>
+                            {language}
+                        </li>)}
+                </ul>
+                {this.state.repos ?
+                    <RepoGrid repos={this.state.repos} /> :
+                    <p style={{ textAlign: 'center'}}>Loading ...</p>}
+            </>
+        )
+    }
 }
 
 export default App;

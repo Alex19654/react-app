@@ -1,8 +1,7 @@
 import {Component} from "react";
 import {fetchPopularRepos} from "./api/fetchPopularRepos";
 import RepoGrid from "./RepoGrid";
-
-const languages = ['All', 'Javascript', 'Ruby', 'Java', 'CSS', 'Python'];
+import SelectedLanguage from "./SelectedLanguage";
 
 class App extends Component {
     state = {
@@ -10,34 +9,34 @@ class App extends Component {
         repos: null
     }
 
-    componentDidMount() {
-        fetchPopularRepos(this.state.selectedLanguage)
+    getRepos(name) {
+        fetchPopularRepos(name)
             .then(data => this.setState({ repos: data }));
+    }
+
+    componentDidMount() {
+        this.getRepos(this.state.selectedLanguage);
     }
 
     selectLanguage = (event) => {
-        this.setState({ repos: null });
-        fetchPopularRepos(event.target.innerText)
-            .then(data => this.setState({ repos: data }));
-        if(event.target.innerText !== this.state.selectedLanguage) {
-            this.setState({selectedLanguage: event.target.innerText});
+        if((event.target.innerText !== this.state.selectedLanguage) && (this.state.repos)) {
+          this.setState({ repos: null });
+          this.getRepos(event.target.innerText);
+          this.setState({selectedLanguage: event.target.innerText});
         }
-    }
+    }  
 
     render() {
+        const {selectedLanguage, repos} = this.state;
+
         return (
             <>
-                <ul className='languages'>
-                    {languages.map((language, index) =>
-                        <li
-                            key={index}
-                            style={{color: language === this.state.selectedLanguage ? '#d0021b' : '#000000'}}
-                            onClick={this.selectLanguage}>
-                            {language}
-                        </li>)}
-                </ul>
+                <SelectedLanguage 
+                  selectedLanguage={selectedLanguage} 
+                  selectOne={this.selectLanguage}
+                />
                 {this.state.repos ?
-                    <RepoGrid repos={this.state.repos} /> :
+                    <RepoGrid repos={repos} /> :
                     <p style={{ textAlign: 'center'}}>Loading ...</p>}
             </>
         )

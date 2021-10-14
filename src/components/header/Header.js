@@ -1,4 +1,6 @@
 import Button from "../button/Button";
+import ToggleThemeButton from "../theme/ThemeToggler";
+import { ThemeContext } from "../theme/ThemeStyles";
 
 const linkParams = [ 
    {name: "Dashboard", link: "/dashboard"}, 
@@ -9,14 +11,18 @@ const linkParams = [
 const Header = () => {
 
    return (
-      
-      <ul>
-         {linkParams.map((item, index) => 
-            <Button key={index} linkName={item.name} linkPath={item.link}/>
-         )}
-      </ul>
-      
-      
+      <ThemeContext.Consumer>
+         {({theme}) => (
+            <>
+               <ToggleThemeButton/>
+               <ul className={theme}>
+                  {linkParams.map((item, index) => 
+                     <Button key={index} linkName={item.name} linkPath={item.link}/>
+                  )}
+               </ul>
+            </>
+         )} 
+      </ThemeContext.Consumer>
    )
 }
 

@@ -2,13 +2,15 @@ import Button from "../button/Button";
 import ToggleThemeButton from "../theme/ThemeToggler";
 import { ThemeContext } from "../theme/ThemeStyles";
 
-const linkParams = [ 
-   {name: "Dashboard", link: "/dashboard"}, 
-   {name: "Users", link: "/users"}, 
-   {name: "Albums", link: "/albums"}
-];
 
 const Header = () => {
+
+   const linkParams = [ 
+      {name: "Dashboard", link: "/dashboard"}, 
+      {name: "Users", link: "/users"}, 
+      {name: "Albums", link: "/albums"}
+   ];
+   
 
    return (
       <ThemeContext.Consumer>

@@ -16,8 +16,6 @@ const DashboardList = () => {
    const changeNote = (e) => {
       console.log(e.target.previousElementSibling.value);
       axiosChange(e.target.parentNode.id, e.target.previousElementSibling.value);
-      //const upadtedNotes = notesList;
-      //setnotesList(upadtedNotes.filter(item => item.id !== e.target.parentNode.id));
    }
 
    useEffect(() => {

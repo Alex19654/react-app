@@ -5,6 +5,7 @@ import Dashboard from "./components/dashboards/Dashboard";
 import Albums from "./components/albums/Albums";
 import Header from "./components/header/Header";
 import Users from "./components/users/Users";
+import Modal from "./components/modal/Modal";
 import { ThemeContext, themes } from './components/theme/ThemeStyles';
 import {
   BrowserRouter as Router,
@@ -30,6 +31,8 @@ class App extends Component {
   }
 
   render() {
+
+    
     return (
       <>
         <Router>
@@ -38,6 +41,7 @@ class App extends Component {
             <hr />
             <Switch>
               <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/dashboard/modal" component={Modal} />
               <Route exact path="/albums" component={Albums} />
               <Route exact path="/users" component={Users} />
             </Switch>

@@ -1,44 +1,47 @@
-import {Component} from "react";
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {fetchPopularRepos} from "../../api/fetchPopularRepos";
 import SelectLanguage from "./SelectLanguage";
 import RepoGrid from "./RepoGrid";
-import {connect} from "react-redux";
+import {popularSelectLanguage, popularRepos} from "../../redux/actions/popular.actions";
 
-const mapStateToProps = (state) => {
-    return state.appReducer;
-}
 
-class Popular extends Component {
-    state = {
-        selectedLanguage: 'All',
-        repos: null
-    }
+const Popular = () => {
 
-    componentDidMount() {
-        this.fetchPopularReposHandler(this.state.selectedLanguage);
-    }
+    const dispatch = useDispatch();
+    const popularLanguage = useSelector(state => state.popularLanguage.language);
+    const repos = useSelector(state => state.repoReducer.repos);
 
-    fetchPopularReposHandler = (text) => {
+    const updateLanguage = (popularLanguage) => {
+        dispatch(popularSelectLanguage(popularLanguage));
+    };
+
+    const updateRepos = (repos) => {
+        dispatch(popularRepos(repos));
+    };
+
+    useEffect(() => {
+        fetchPopularReposHandler(popularLanguage);
+    }, []);
+
+    const fetchPopularReposHandler = (text) => {
         fetchPopularRepos(text)
-            .then(data => this.setState({ repos: data }));
+            .then(data => {updateRepos(data)});
     }
 
-    selectLanguage = (event) => {
-        this.setState({ repos: null });
-        this.fetchPopularReposHandler(event.target.innerText);
-        if(event.target.innerText !== this.state.selectedLanguage) {
-            this.setState({selectedLanguage: event.target.innerText});
+    const selectLanguage = (event) => {
+        updateRepos(null);
+        fetchPopularReposHandler(event.target.innerText);
+        if(event.target.innerText !== popularLanguage) {
+            updateLanguage(event.target.innerText);
         }
     }
 
-    render() {
-        const {selectedLanguage, repos} = this.state;
         return (
             <>
-                <span>{this.props.text}</span>
                 <SelectLanguage
-                    selectedLanguage={selectedLanguage}
-                    selectedLanguageHandler={repos ? this.selectLanguage : null}
+                    selectedLanguage={popularLanguage}
+                    selectedLanguageHandler={repos ? selectLanguage : null}
                 />
                 {repos ?
                     <RepoGrid repos={repos} /> :
@@ -46,6 +49,5 @@ class Popular extends Component {
             </>
         )
     }
-}
 
-export default connect(mapStateToProps)(Popular);
+export default Popular;

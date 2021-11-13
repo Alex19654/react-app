@@ -1,38 +1,36 @@
-import {fetchItems} from "../../fetch/fetchAPI";
-import {Component} from "react";
-import List from "../list/List";
 import { ThemeContext } from "../theme/ThemeStyles";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchItems } from "../../redux/thunk/app.thunk";
+import { useEffect } from "react";
+import List from "../list/List";
 
 const item = "users";
 
-class Users extends Component {
+const Users = () => {
 
-   constructor(props) {
-      super(props);
-      this.state = {
-         items: null
-      }
+   const dispatch = useDispatch();
+   const { loading, items, error } = useSelector((state) => state.albums);
+
+   const getItemsHandler = () => {
+      dispatch(fetchItems("users"));
    }
 
-   static contextType = ThemeContext; 
 
-   componentDidMount() {
-      fetchItems(item)
-         .then(data => this.setState({items: data}));
-   }
+   useEffect(() => {
+      getItemsHandler();
+   }, []);
 
-   render() {
-
-      const context = this.context;
 
       return (
-         <div className={context.theme}>
-            <h2>Users</h2>
-            {this.state.items ? <List items={this.state.items} /> : <div>Loading...</div>}
-         </div>
+         <ThemeContext.Consumer>
+            {({theme}) => (
+               <div className={theme}>
+                  <h2>Users</h2>
+                  {items ? <List items={items} /> : <div>Loading...</div>}
+               </div>
+            )}
+         </ThemeContext.Consumer>
       )
-   }
-   
 }
 
 export default Users;

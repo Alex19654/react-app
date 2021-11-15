@@ -1,4 +1,5 @@
 import Parser from 'html-react-parser'; // Connect parser to convert string into JSX 
+import { TableStyle } from './ListStyle.modal';
 
 const List = (props) => {
 
@@ -46,12 +47,10 @@ const List = (props) => {
 
    return (  
       <div>
-         <table>
-            <tbody>
+         <TableStyle>
                {Parser(headerIterator(keys))}
                {Parser(bodyIterator(props.items))}
-            </tbody>
-         </table>
+         </TableStyle>
       </div> 
    )
 }

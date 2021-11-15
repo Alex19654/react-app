@@ -1,9 +1,11 @@
 import Button from "../button/Button";
 import ToggleThemeButton from "../theme/ThemeToggler";
 import { ThemeContext } from "../theme/ThemeStyles";
+import { UlStyle } from "../dashboards/DashboardStyles.modal";
+import { Menu } from 'antd';
+import {Link} from "react-router-dom";
 
-
-const Header = () => {
+const HeaderComponent = () => {
 
    const linkParams = [ 
       {name: "Dashboard", link: "/dashboard"}, 
@@ -13,19 +15,17 @@ const Header = () => {
    
 
    return (
-      <ThemeContext.Consumer>
-         {({theme}) => (
             <>
                <ToggleThemeButton/>
-               <ul className={theme}>
+               <Menu theme="dark" mode="horizontal">
                   {linkParams.map((item, index) => 
-                     <Button key={index} linkName={item.name} linkPath={item.link}/>
+                        <Menu.Item key={index}>
+                           <Link className="buttonLink" to={item.link}>{item.name}</Link>
+                        </Menu.Item>
                   )}
-               </ul>
+               </Menu>
             </>
-         )} 
-      </ThemeContext.Consumer>
    )
 }
 
-export default Header;
+export default HeaderComponent;

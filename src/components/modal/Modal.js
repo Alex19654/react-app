@@ -17,7 +17,7 @@ const Modal = () => {
    });
 
    return (
-      <div className={activeModal ? "modal active" : "modal"} onClick>
+      <div className={activeModal ? "modal active" : "modal"} >
          <div className="modal-body" onClick={(e) => e.stopPropagation(e)} ref={ref}>
             <FormRegistration />
          </div>

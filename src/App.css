@@ -5,6 +5,7 @@ html, body {
 .switch-wrapper {
    display: block;
    position: absolute;
+   width: 2px;
    top: 10px;
    left: 20px;
 }
@@ -29,13 +30,6 @@ h2 {
    margin: 0;
 }
 
-ul {
-   display: flex;
-   justify-content: center;
-   padding: 0;
-   margin: 0;
-}
-
 .buttonLink {
    text-decoration: none;
    color: rgb(23, 124, 23);
@@ -50,32 +44,12 @@ li {
    margin: 20px;
 }
 
-table {
-   border: 1px solid #000;
-   margin: auto;
-   background-color: rgb(237, 245, 235);
-}
-
-th {
-   border: 1px solid #000;
-}
-
-td {
-   border: 1px solid #000;
-   text-align: center;
-}
-
 div {
    margin: 0 auto;
-   height: 100%;
 }
 
 .light-green {
    background-color: rgb(218, 238, 230);
-}
-
-.light-green div {
-   height: 100%;
 }
 
 .light-blue {
@@ -85,8 +59,8 @@ div {
 .switch {
    position: relative;
    display: block;
-   width: 60px;
-   height: 34px;
+   width: 30px;
+   height: 20px;
    margin: 0 auto;
    margin-top: 10px;
  }
@@ -108,8 +82,8 @@ div {
  .slider:before {
    position: absolute;
    content: "";
-   height: 26px;
-   width: 26px;
+   height: 12px;
+   width: 12px;
    left: 4px;
    bottom: 4px;
    background-color: white;
@@ -126,9 +100,9 @@ div {
  }
  
  input:checked + .slider:before {
-   -webkit-transform: translateX(26px);
-   -ms-transform: translateX(26px);
-   transform: translateX(26px);
+   -webkit-transform: translateX(12px);
+   -ms-transform: translateX(12px);
+   transform: translateX(12px);
  }
  
  .slider.round {
@@ -139,32 +113,8 @@ div {
    border-radius: 50%;
  }
 
- form {
-   width: 285px;
-   margin: 0 auto;
-   border: 1px solid rgb(24, 23, 23);
-   border-radius: 7px;
-   padding: 5px;
- }
-
  form div{
    margin: 5px;
- }
-
- div label {
-   display: block;
-   float: left;
-   width: 100px;
-   height: 15px;
-   padding: 5px;
- } 
-
- form button {
-    display: block;
-    width: 50%;
-    margin-top: 5px;
-
-    margin: 0 auto;
  }
 
  .notes-list {
@@ -179,12 +129,6 @@ div {
 
  .notes-body button {
     margin: 5px;
- }
-
- textarea {
-    display: block;
-    margin: 0 auto;
-    width: 80%;
  }
 
  .modal {

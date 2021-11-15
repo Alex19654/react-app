@@ -2,6 +2,7 @@ import Button from "../button/Button";
 import { ThemeContext } from "../theme/ThemeStyles";
 import DashboardList from "./DashboardList";
 import { useRouteMatch } from "react-router-dom";
+import { UlStyle } from "./DashboardStyles.modal";
 
 const Dashboard = () => {
 
@@ -20,11 +21,11 @@ const Dashboard = () => {
          {({theme}) => (
             <div className={theme}>
                <h2>Dashboard</h2>
-               <ul>
+               <UlStyle>
                   {linkParams.map((item, index) => 
                      <Button key={index} linkName={item.name} linkPath={item.link} />
                   )}
-               </ul>
+               </UlStyle>
                <DashboardList/>
             </div>
          )} 

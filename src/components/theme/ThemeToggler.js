@@ -4,7 +4,7 @@ function ToggleThemeButton() {
    return (
       <ThemeContext.Consumer>
          {({themeToggler}) => (
-            <div className="switch-wrapper">
+            <div className="logo switch-wrapper">
                <label className="switch"  onClick={themeToggler}>
                   <input type="checkbox" />
                   <span className="slider round" onClick={themeToggler}></span>

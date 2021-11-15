@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import DashboardItems from "./DashboardItems";
 import FormComponent from "../form/FormComponent";
 import { useSelector, useDispatch } from "react-redux";
-import { changeList, updateList } from "../../redux/actions/dashboard.actions";
+import { updateList } from "../../redux/actions/dashboard.actions";
 import { axiosPut, axiosGet, axiosDelete } from "../../redux/thunk/app.thunk";
+import { UlStyle } from "./DashboardStyles.modal";
+import { ThemeContext } from "../theme/ThemeStyles";
 
 const DashboardList = () => {
 
@@ -29,11 +31,14 @@ const DashboardList = () => {
    }, []);
    
    return (
-      <div>
-         <FormComponent />
-         {notesList ? <ul className="notes-list"><DashboardItems notes={notesList} deleteNote={deleteNote} changeNote={changeNote}/></ul> : <div>There are no notes for now...</div>}
-      </div>
-      
+      <ThemeContext.Consumer>
+         {({theme}) => (
+            <div className={theme}>
+               <FormComponent />
+               {notesList ? <UlStyle className="notes-list"><DashboardItems notes={notesList} deleteNote={deleteNote} changeNote={changeNote}/></UlStyle> : <div>There are no notes for now...</div>}
+            </div>
+         )}
+      </ThemeContext.Consumer>
    )
 };
 

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { changeDescription, changeText } from "../../redux/actions/dashboard.actions";
-import { changeList } from "../../redux/actions/dashboard.actions";
 import { axiosGet, axiosPost } from "../../redux/thunk/app.thunk";
-
+import { FormStyle, ButtonStyle } from "./FormStyles.module";
+import { Form, Input } from 'antd';
 
 const FormComponent = () => {
 
@@ -27,24 +27,61 @@ const FormComponent = () => {
    };
 
    const handleSubmit =  (e) => {
-      e.preventDefault();
       postItemsHandler();
       getItemsHandler();
    }
 
    return (
-      <form onSubmit={handleSubmit}>
-         <div>
-            <label htmlFor="description">Description</label>
-            <input type="text" id="description" value={description} onChange={(e) => descChangeHandler(e.target.value)}/>
-         </div>
-         <div>
-            <label htmlFor="text">Text</label>
-            <input type="text" id="text" value={text} onChange={(e) => textChangeHandler(e.target.value)}/>
-         </div>
-         <button type="submit">Submit</button>
-      </form>
-   )
+         <FormStyle
+         name="basic"
+         labelCol={{
+         span: 8,
+         }}
+         wrapperCol={{
+         span: 16,
+         }}
+         onFinish={handleSubmit}
+         >
+         <Form.Item
+         label="Description"
+         name="description"
+         id="description"
+         rules={[
+            {
+               required: true,
+               message: 'Please input description!',
+            },
+         ]}
+         >
+         <Input onChange={(e) => descChangeHandler(e.target.value)} />
+         </Form.Item>
+
+         <Form.Item
+         label="Text"
+         name="text"
+         id="text"
+         rules={[
+            {
+               required: true,
+               message: 'Please input text!',
+            },
+         ]}
+         >
+         <Input onChange={(e) => textChangeHandler(e.target.value)} />
+         </Form.Item>
+
+         <Form.Item
+         wrapperCol={{
+            offset: 0,
+            span: 0,
+         }}
+         >
+         <ButtonStyle type="primary" htmlType="submit">
+            Submit
+         </ButtonStyle>
+         </Form.Item>
+         </FormStyle>
+      );
 }
 
 export default FormComponent;
